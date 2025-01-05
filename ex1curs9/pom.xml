@@ -7,6 +7,8 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
+
+
 	</parent>
 	<groupId>com.unibuc</groupId>
 	<artifactId>ex1curs9</artifactId>
@@ -49,6 +51,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

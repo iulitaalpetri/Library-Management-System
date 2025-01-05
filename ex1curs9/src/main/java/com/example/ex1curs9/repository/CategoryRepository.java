@@ -11,12 +11,15 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Category findByName(String name);
     boolean existsByName(String name);
-    List<Category> findByDescriptionContaining(String description);
 
-    List<Category> findByBooksIsNotEmpty();
+    List<Category> findAllByOrderByNameAsc(); // listraea categoriilor în ordine alfabetică
 
-    List<Category> findAllByOrderByNameAsc();
 
-    @Query("SELECT c FROM Category c WHERE SIZE(c.books) >= :minBooks")
-    List<Category> findCategoriesWithMinBooks(@Param("minBooks") int minBooks);
+    @Query("SELECT c FROM Category c WHERE SIZE(c.books) > 0")
+    List<Category> findNonEmptyCategories(); // lista categoriilor care au cărți
+
+    // lista cartilor dintr o categorie
+    @Query("SELECT c.books FROM Category c WHERE c.id = :categoryId")
+    List<Category> findBooksByCategoryId(@Param("categoryId") Long categoryId);
+
 }
