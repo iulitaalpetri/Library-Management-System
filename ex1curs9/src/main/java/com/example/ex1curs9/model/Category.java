@@ -42,4 +42,7 @@ public class Category {
     }
 
 
+    public long getId() {
+        return id;
+    }
 }

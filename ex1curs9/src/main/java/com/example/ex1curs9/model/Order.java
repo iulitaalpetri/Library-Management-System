@@ -29,6 +29,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     // Enum pentru status-ul comenzii
     public enum OrderStatus {
         PENDING,
