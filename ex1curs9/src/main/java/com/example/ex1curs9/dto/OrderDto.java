@@ -10,59 +10,46 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class OrderDto {
-    private User user;
-    private Set<Book> books = new HashSet<>();
-    private double totalPrice;
+    private Long userId;
+    private Set<BookDto> books = new HashSet<>();
     private LocalDateTime orderDate;
-    private Order.OrderStatus status;
+
 
     public OrderDto() {
         this.orderDate = LocalDateTime.now();
-        this.status = Order.OrderStatus.PENDING;
     }
 
-    public OrderDto(User user) {
+    public OrderDto(long userId, Set<BookDto> books, double totalPrice) {
         this();
-        this.user = user;
+        this.userId = userId;
+        this.books = books;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public Set<Book> getBooks() {
+    public Set<BookDto> getBooks() {
         return books;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
+
 
     public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public Order.OrderStatus getStatus() {
-        return status;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setBooks(Set<Book> books) {
+    public void setBooks(Set<BookDto> books) {
         this.books = books;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+
 
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public void setStatus(Order.OrderStatus status) {
-        this.status = status;
     }
 }

@@ -38,5 +38,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     ); // admin - actualizare detalii carte
 
 
-    boolean existsByIdAndStockEquals(Long id, int stock); // admin - verificare stoc inainte de stergere
+
 }

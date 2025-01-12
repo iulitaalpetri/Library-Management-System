@@ -33,9 +33,6 @@ public class OrderService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
 
-        if(orderRepository.existsByUserAndStatus(user, Order.OrderStatus.PENDING)) {
-            throw new OrderAlreadyExistsException();
-        }
 
         Order order = new Order(user);
 
@@ -56,31 +53,11 @@ public class OrderService {
         return orderRepository.findAllByOrderByOrderDateDesc();
     }
 
-    public Double getOrderTotal(Long orderId) {
-        return orderRepository.calculateOrderTotal(orderId);
-    }
-
-    public Optional<Order> getLastOrder(User user) {
-        return orderRepository.findFirstByUserOrderByOrderDateDesc(user);
-    }
-
-    public void updateStatus(Long orderId, Order.OrderStatus newStatus) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException());
-
-        orderRepository.updateOrderStatus(orderId, newStatus);
-    }
 
     public Order getOrderById(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException());
     }
 
-    public void cancelOrder(Long orderId) {
-        Order order = getOrderById(orderId);
-        if(order.getStatus() != Order.OrderStatus.PENDING) {
-            throw new IllegalOrderStateException();
-        }
-        orderRepository.updateOrderStatus(orderId, Order.OrderStatus.CANCELLED);
-    }
+
 }

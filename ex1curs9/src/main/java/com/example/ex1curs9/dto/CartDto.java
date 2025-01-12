@@ -8,34 +8,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CartDto {
-    private User user;
-    private Set<Book> books = new HashSet<>();
 
+    private Long id;
+    private Long userId;
+    private Set<BookDto> books = new HashSet<>();
     public CartDto(){
-
     }
 
-    public CartDto(User user){
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<Book> getBooks(){
-        return books;
-    }
-
-    public void setBooks(Set<Book> books) {
+    public CartDto(Long id, Long userId, Set<BookDto> books) {
+        this.id = id;
+        this.userId = userId;
         this.books = books;
     }
 
-    public void addBook(Book book){
-        books.add(book);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setBooks(Set<BookDto> collect) {
+        this.books = collect;
     }
 }

@@ -22,39 +22,27 @@ public class Order {
     )
     private Set<Book> books = new HashSet<>();
 
-    private double totalPrice;
-
     private LocalDateTime orderDate;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
 
     public void setId(long id) {
         this.id = id;
     }
 
-    // Enum pentru status-ul comenzii
-    public enum OrderStatus {
-        PENDING,
-        PROCESSING,
-        SHIPPED,
-        DELIVERED,
-        CANCELLED
-    }
 
-    // Constructor gol necesar pentru JPA
+
     public Order() {
         this.orderDate = LocalDateTime.now();
-        this.status = OrderStatus.PENDING;
+
     }
 
-    // Constructor cu parametri
+
     public Order(User user) {
-        this();  // apelează constructorul gol pentru a seta data și status-ul
+        this();  // apeleaza constructorul gol pentru a seta data
         this.user = user;
     }
 
-    // Getters și Setters
+
     public long getId() {
         return id;
     }
@@ -75,13 +63,7 @@ public class Order {
         this.books = books;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 
     public LocalDateTime getOrderDate() {
         return orderDate;
@@ -91,28 +73,17 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
 
 
     public void addBook(Book book) {
         this.books.add(book);
-        this.calculateTotalPrice();
+
     }
 
     public void removeBook(Book book) {
         this.books.remove(book);
-        this.calculateTotalPrice();
+
     }
 
-    private void calculateTotalPrice() {
-        this.totalPrice = this.books.stream()
-                .mapToDouble(Book::getPrice)
-                .sum();
-    }
+
 }

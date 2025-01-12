@@ -3,6 +3,9 @@ package com.example.ex1curs9.mapper;
 import com.example.ex1curs9.dto.BookDto;
 import com.example.ex1curs9.model.Book;
 import com.example.ex1curs9.model.Category;
+import com.example.ex1curs9.repository.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,6 +13,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class BookMapper {
+    private final CategoryRepository categoryRepository;
+
+    @Autowired
+    public BookMapper(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public BookDto toDto(Book book) {
         BookDto dto = new BookDto();
@@ -21,13 +30,19 @@ public class BookMapper {
         return dto;
     }
 
-    public Book toEntity(BookDto dto, Category category) {
+
+    public Book toEntity(BookDto dto) {
         Book book = new Book();
         book.setTitle(dto.getTitle());
         book.setAuthor(dto.getAuthor());
         book.setPrice(dto.getPrice());
         book.setStock(dto.getStock());
+
+
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + dto.getCategoryId()));
         book.setCategory(category);
+
         return book;
     }
 

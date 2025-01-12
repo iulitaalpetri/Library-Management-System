@@ -1,7 +1,6 @@
 package com.example.ex1curs9.mapper;
 
 import com.example.ex1curs9.dto.UserDto;
-import com.example.ex1curs9.model.AdminActionLog;
 import com.example.ex1curs9.model.Cart;
 import com.example.ex1curs9.model.Order;
 import com.example.ex1curs9.model.User;
@@ -24,7 +23,6 @@ public class UserMapper {
                     .map(order -> {
                         Order simpleOrder = new Order();
                         simpleOrder.setId(order.getId());
-                        simpleOrder.setStatus(order.getStatus());
                         return simpleOrder;
                     })
                     .collect(Collectors.toList()));
@@ -36,16 +34,6 @@ public class UserMapper {
             dto.setCart(simpleCart);
         }
 
-        if (user.getAdminActions() != null) {
-            dto.setAdminActions(user.getAdminActions().stream()
-                    .map(action -> {
-                        AdminActionLog simpleAction = new AdminActionLog();
-                        simpleAction.setActionDescription(action.getActionDescription());
-                        simpleAction.setTimestamp(action.getTimestamp());
-                        return simpleAction;
-                    })
-                    .collect(Collectors.toList()));
-        }
 
         return dto;
     }

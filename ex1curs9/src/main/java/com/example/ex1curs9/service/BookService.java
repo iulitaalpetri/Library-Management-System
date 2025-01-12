@@ -11,12 +11,10 @@ import java.util.Optional;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
-    private final AdminActionLogService adminActionLogService;
 
     @Autowired
-    public BookService(BookRepository bookRepository, AdminActionLogService adminActionLogService) {
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.adminActionLogService = adminActionLogService;
     }
 
     public List<Book> getAllBooks() {
@@ -31,27 +29,13 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public void updateBook(Long id, String title, String author, double price) {
-        bookRepository.updateBookDetails(id, title, author, price);
-    }
-
     public void updateBookStock(Long bookId, int quantity) {
         bookRepository.updateStock(bookId, quantity);
     }
 
-    public void deleteBook(Long id) {
-        if(bookRepository.existsByIdAndStockEquals(id, 0)) {
-            bookRepository.deleteById(id);
-        } else {
-            throw new IllegalStateException("Cannot delete book with existing stock");
-        }
-    }
 
     public List<Book> getBooksInStock() {
         return bookRepository.findByStockGreaterThan(0);
     }
 
-    public Optional<Book> getBookById(Long id) {
-        return bookRepository.findById(id);
-    }
 }

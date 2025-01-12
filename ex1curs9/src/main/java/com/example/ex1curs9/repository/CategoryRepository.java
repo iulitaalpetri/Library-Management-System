@@ -12,11 +12,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     Category findByName(String name);
     boolean existsByName(String name);
 
-    List<Category> findAllByOrderByNameAsc(); // listraea categoriilor în ordine alfabetică
-
-
-    @Query("SELECT c FROM Category c WHERE SIZE(c.books) > 0")
-    List<Category> findNonEmptyCategories(); // lista categoriilor care au cărți
 
     // lista cartilor dintr o categorie
     @Query("SELECT c.books FROM Category c WHERE c.id = :categoryId")

@@ -28,4 +28,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.cart WHERE u.id = :userId")
     Optional<User> findUserWithCart(@Param("userId") Long userId);
+
+    // nr de utilizatori cu un anumit rol
+    Long countByRole(User.Role role);
+
 }

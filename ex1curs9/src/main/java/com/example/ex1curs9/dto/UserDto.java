@@ -1,10 +1,8 @@
 package com.example.ex1curs9.dto;
 
-import com.example.ex1curs9.model.AdminActionLog;
 import com.example.ex1curs9.model.Cart;
 import com.example.ex1curs9.model.Order;
 import com.example.ex1curs9.model.User;
-import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -14,7 +12,7 @@ public class UserDto {
     private User.Role role;
     private List<Order> orders;
     private Cart cart;
-    private List<AdminActionLog> adminActions;
+
 
     public UserDto() {
     }
@@ -65,11 +63,4 @@ public class UserDto {
         this.cart = cart;
     }
 
-    public List<AdminActionLog> getAdminActions() {
-        return adminActions;
-    }
-
-    public void setAdminActions(List<AdminActionLog> adminActions) {
-        this.adminActions = adminActions;
-    }
 }

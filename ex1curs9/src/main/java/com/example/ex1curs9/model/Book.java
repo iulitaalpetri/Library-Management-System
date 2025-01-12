@@ -35,6 +35,10 @@ public class Book {
         this.stock = stock;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -75,21 +79,6 @@ public class Book {
         this.category = category;
     }
 
-    public Set<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(Set<Cart> carts) {
-        this.carts = carts;
-    }
-
-    public Set<Order> getOrders(){
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 
 
 }

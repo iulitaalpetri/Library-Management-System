@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 public class CategoryDto {
+
     private String name;
     private String description;
 
@@ -34,6 +35,4 @@ public class CategoryDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }

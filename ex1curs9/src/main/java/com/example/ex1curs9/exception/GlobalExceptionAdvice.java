@@ -17,4 +17,18 @@ public class GlobalExceptionAdvice {
     public ResponseEntity handle(DestinationNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> handleUnauthorized(UnauthorizedException e) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(e.getMessage());
+    }
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<String> handleOutOfStock(OutOfStockException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(e.getMessage());
+    }
 }

@@ -11,7 +11,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
+
+    @Column(nullable = false, unique = true)
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -20,8 +21,10 @@ public class User {
     private List<Order> orders;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
-    @OneToMany(mappedBy = "adminUser")
-    private List<AdminActionLog> adminActions;
+
+    public Long getId() {
+        return id;
+    }
 
     public enum Role {
         USER, ADMIN
@@ -64,10 +67,6 @@ public class User {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     public Cart getCart() {
         return cart;
     }
@@ -76,13 +75,6 @@ public class User {
         this.cart = cart;
     }
 
-    public List<AdminActionLog> getAdminActions() {
-        return adminActions;
-    }
-
-    public void setAdminActions(List<AdminActionLog> adminActions) {
-        this.adminActions = adminActions;
-    }
 
 
 

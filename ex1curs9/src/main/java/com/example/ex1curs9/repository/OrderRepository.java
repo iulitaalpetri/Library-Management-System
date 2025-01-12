@@ -17,22 +17,12 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByUserOrderByOrderDateDesc(User user); // istoric comenzi
 
-
     List<Order> findAllByOrderByOrderDateDesc(); // admin - istoric comenzi
-
 
     @Query("SELECT SUM(b.price) FROM Order o JOIN o.books b WHERE o.id = :orderId")
     Double calculateOrderTotal(@Param("orderId") Long orderId); // calcul total comandă
 
-
-    boolean existsByUserAndStatus(User user, Order.OrderStatus status); // verifica daca exista deja comanda
-
-
     Optional<Order> findFirstByUserOrderByOrderDateDesc(User user);
 
-    // actualizare status comanda
-    @Modifying
-    @Transactional
-    @Query("UPDATE Order o SET o.status = :status WHERE o.id = :orderId")
-    void updateOrderStatus(@Param("orderId") Long orderId, @Param("status") Order.OrderStatus status);
+
 }

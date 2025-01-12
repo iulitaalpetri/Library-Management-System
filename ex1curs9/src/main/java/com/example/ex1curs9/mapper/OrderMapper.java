@@ -11,45 +11,27 @@ import java.util.stream.Collectors;
 @Component
 public class OrderMapper {
     private final BookMapper bookMapper;
-    private final UserMapper userMapper;
 
     @Autowired
-    public OrderMapper(BookMapper bookMapper, UserMapper userMapper) {
+    public OrderMapper(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
-        this.userMapper = userMapper;
     }
 
     public OrderDto toDto(Order order) {
         OrderDto dto = new OrderDto();
-        dto.setUser(order.getUser());
-        dto.setBooks(order.getBooks());
-        dto.setTotalPrice(order.getTotalPrice());
+        dto.setUserId(order.getId());
+        dto.setUserId(order.getUser().getId());
+        dto.setBooks(order.getBooks().stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toSet()));
         dto.setOrderDate(order.getOrderDate());
-        dto.setStatus(order.getStatus());
         return dto;
     }
 
-    public Order toEntity(OrderDto dto) {
-        Order order = new Order();
-        order.setUser(dto.getUser());
-        order.setBooks(dto.getBooks());
-        order.setTotalPrice(dto.getTotalPrice());
-        order.setOrderDate(dto.getOrderDate());
-        order.setStatus(dto.getStatus());
-        return order;
-    }
 
     public List<OrderDto> toDtoList(List<Order> orders) {
         return orders.stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
-    }
-
-    public void updateEntityFromDto(OrderDto dto, Order order) {
-        order.setUser(dto.getUser());
-        order.setBooks(dto.getBooks());
-        order.setTotalPrice(dto.getTotalPrice());
-        order.setOrderDate(dto.getOrderDate());
-        order.setStatus(dto.getStatus());
     }
 }
